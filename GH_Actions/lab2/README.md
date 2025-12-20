@@ -35,18 +35,29 @@ python string_utils.py
 
 ## 🚀 Your Challenge: Create the Workflow
 
-### Step 1: Create the Workflow Directory
-Create the following folder structure:
+### Step 1: Understand the Structure
+
+The `.github/workflows/` folder is at the **repository root**, not inside lab2!
+
 ```
-lab2/
-└── .github/
-    └── workflows/
-        └── (your workflow file here)
+Repository Root/
+├── .github/
+│   └── workflows/
+│       └── python-tests.yml (already exists for lab1)
+└── GH_Actions/
+    ├── lab1/
+    └── lab2/
 ```
+
+You'll add a new workflow file (or modify the existing one) to also test lab2.
 
 ### Step 2: Create Your Workflow File
 
-Create a YAML file (e.g., `test.yml`) in `.github/workflows/` that:
+Option 1: Create a new workflow file in `.github/workflows/` (e.g., `lab2-tests.yml`)
+
+Option 2: Modify the existing `python-tests.yml` to test both lab1 and lab2
+
+Your workflow needs to:
 
 1. **Triggers on push to main branch**
 2. **Runs on Ubuntu**
@@ -56,13 +67,16 @@ Create a YAML file (e.g., `test.yml`) in `.github/workflows/` that:
 
 ### 💡 Hints
 
-Look at lab1's workflow for reference, but try to write it yourself first!
+- The `.github/workflows/` folder is at the repository root (already exists from lab1)
+- Your `working-directory` should be `./GH_Actions/lab2`
+- Look at the existing `python-tests.yml` in `.github/workflows/` for reference
 
 Key things your workflow needs:
 - `name:` - Give it a descriptive name
 - `on:` - When should it run?
 - `jobs:` - What should it do?
 - `steps:` - The individual actions to perform
+- `working-directory:` - Where to run the commands (`./GH_Actions/lab2`)
 
 ### ✨ Bonus Challenges
 
@@ -71,11 +85,13 @@ Once you have a basic workflow running:
 2. Add code coverage reporting
 3. Make it run on both push and pull requests
 4. Add a linting step
+5. Combine lab1 and lab2 tests in a single workflow with multiple jobs
 
 ## 📚 Resources
 
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Python unittest Documentation](https://docs.python.org/3/library/unittest.html)
+- Check `.github/workflows/python-tests.yml` for lab1's workflow example
 - Check lab1's workflow as a reference
 
 ## ✔️ Success Criteria
