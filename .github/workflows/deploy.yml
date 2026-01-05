@@ -22,13 +22,9 @@ jobs:
 
       - name: Deploy application
         run: |
-          ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-            set -e
-            cd /opt/app
-            git pull origin main
-            cd app
-            source venv/bin/activate
-            pip install -r requirements.txt
-            pkill -f gunicorn || true
-            nohup gunicorn -b 0.0.0.0:5000 main:app &
-          EOF
+             ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
+             cd /home/ubuntu/app
+             source venv/bin/activate
+             pip install -r requirements.txt
+             pkill -f gunicorn || true
+             nohup gunicorn -b 0.0.0.0:5000 main:app > app.log 2>&1 & EOF   
