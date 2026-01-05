@@ -31,5 +31,5 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
           pkill -f gunicorn || true
-          nohup gunicorn -b 0.0.0.0:5000 main:app > app.log 2>&1 & 
+          nohup gunicorn -b 0.0.0.0:5001 main:app > app.log 2>&1 & 
           EOF
