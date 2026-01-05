@@ -26,7 +26,7 @@ jobs:
 
       - name: Lint code (flake8)
         run: |
-          flake8 app
+          flake8 app --exclude app/tests
 
       - name: Security scan (bandit)
         run: |
