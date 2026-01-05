@@ -9,22 +9,27 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      EC2_USER: ubuntu
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup SSH
         run: |
-             mkdir -p ~/.ssh
-             echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-             chmod 600 ~/.ssh/id_rsa
-             ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts || true
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts || true
 
       - name: Deploy application
         run: |
-             ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
-             cd /home/ubuntu/app
-             source venv/bin/activate
-             pip install -r requirements.txt
-             pkill -f gunicorn || true
-             nohup gunicorn -b 0.0.0.0:5000 main:app > app.log 2>&1 & EOF   
+          ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
+          cd /home/ubuntu/app
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pkill -f gunicorn || true
+          nohup gunicorn -b 0.0.0.0:5000 main:app > app.log 2>&1 & 
+          EOF
