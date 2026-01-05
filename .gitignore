@@ -1,0 +1,16 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+terraform/.terraform.lock.hcl
+
+# Python
+venv/
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
